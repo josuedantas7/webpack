@@ -8,14 +8,14 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "http://localhost:9001/",
+    publicPath: "http://localhost:9003/",
   },
   devServer: {
     static: {
       directory: path.resolve(__dirname, "dist"),
       serveIndex: true,
     },
-    port: 9001,
+    port: 9003,
     historyApiFallback: true,
     hot: true,
   },
@@ -44,10 +44,10 @@ module.exports = {
       title: "App",
     }),
     new ModuleFederationPlugin({
-      name: 'App',
-      remotes: {
-        HomeApp: 'HomeApp@http://localhost:9002/remoteEntry.js',
-        ContactApp: 'ContactApp@http://localhost:9003/remoteEntry.js'
+      name: 'ContactApp',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './ContactPage': './src/Contact.js'
       }
     })
   ],
